@@ -115,7 +115,7 @@
 
  */
 :root {
-  --theme-deafult: #4274BA;
+  --theme-deafult: #b8873b;
   --theme-secondary: #FE6A49;
   --light-background: rgba(242, 243, 247, 0.7);
   --body-font-color: #86909C;
@@ -3448,7 +3448,7 @@ table tbody .border-bottom-warning td {
 }
 
 .bg-secondary-light {
-  background-color: rgba(254, 106, 73, 0.3);
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 .bg-warning-light {
