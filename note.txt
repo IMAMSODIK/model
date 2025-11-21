@@ -1,0 +1,20 @@
+designer group
+        - nama designer
+        - tanggal
+        - flayer
+
+vanue
+        - nama venue
+
+generate tiket
+        - designer_group_id
+        - count_vvip
+        - count_reguler
+        - vanue_id
+
+tiket
+        - designer_group_id
+        - id_undangan
+        - jenis_tiket
+        - status
+        - qrcode
