@@ -81,9 +81,9 @@
                     // Badge tipe tiket
                     let tipeBadge = '';
                     if (tiket.tipe_tiket === 'vvip') {
-                        tipeBadge = '<span class="badge bg-warning text-dark">VVIP</span>';
+                        tipeBadge = '<span style="background-color:#ffc107;color:#000;padding:2px 6px;border-radius:5px;font-weight:bold;">VVIP</span>';
                     } else {
-                        tipeBadge = '<span class="badge bg-primary">Reguler</span>';
+                        tipeBadge = '<span style="background-color:#0d6efd;color:#fff;padding:2px 6px;border-radius:5px;font-weight:bold;">Reguler</span>';
                     }
 
                     // Card HTML
