@@ -36,18 +36,19 @@ class DesignerController extends Controller
         return view('ticket.index', $data);
     }
 
-    public function verifikasiProses(Request $r){
+    public function verifikasiProses(Request $r)
+    {
         $id = $r->id;
 
         try {
             $tiket = Tiket::findOrFail($id);
 
-            if($tiket->is_hadir){
+            if ($tiket->is_hadir) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Tiket sudah digunakan'
                 ]);
-            }else{
+            } else {
                 $tiket->nama_pemilik = $r->nama;
                 $tiket->kontak_pemilik = $r->kontak;
                 $tiket->is_hadir = 1;
@@ -205,13 +206,16 @@ class DesignerController extends Controller
 
     public function generateTicketDownload($designer_id)
     {
-        $tikets = Tiket::where('designer_id', $designer_id)->get();
+        // 1. Ambil hanya tiket yang belum di-download
+        $tikets = Tiket::where('designer_id', $designer_id)
+            ->where('is_downloaded', 0)
+            ->get();
 
-        if ($tikets->count() == 0) {
-            return back()->with('error', 'Tidak ada tiket untuk designer ini.');
+        if ($tikets->count() === 0) {
+            return back()->with('error', 'Tidak ada tiket baru untuk di-download.');
         }
 
-        // 2. Nama ZIP
+        // 2. Nama file ZIP
         $zipFileName = 'tiket-designer-' . $designer_id . '-' . time() . '.zip';
         $zipPath = storage_path('app/public/' . $zipFileName);
 
@@ -223,13 +227,10 @@ class DesignerController extends Controller
 
                 if ($t->gambar_tiket && Storage::disk('public')->exists($t->gambar_tiket)) {
 
-                    // path file di storage/app/public
                     $filePath = Storage::disk('public')->path($t->gambar_tiket);
 
-                    // nama file di dalam ZIP
                     $newFileName = $t->kode_tiket . '.' . pathinfo($filePath, PATHINFO_EXTENSION);
 
-                    // masukkan ke zip
                     $zip->addFile($filePath, $newFileName);
                 }
             }
@@ -239,12 +240,14 @@ class DesignerController extends Controller
             return back()->with('error', 'Gagal membuat file ZIP.');
         }
 
-        // 4. Update status download (opsional)
-        Tiket::where('designer_id', $designer_id)->update([
-            'is_downloaded' => 1
-        ]);
+        // 4. Update hanya tiket yang masuk ZIP (is_downloaded → 1)
+        Tiket::where('designer_id', $designer_id)
+            ->where('is_downloaded', 0)
+            ->update([
+                'is_downloaded' => 1
+            ]);
 
-        // 5. Return file untuk di-download user
+        // 5. Download ZIP
         return response()->download($zipPath)->deleteFileAfterSend(true);
     }
 }
