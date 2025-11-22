@@ -6,7 +6,9 @@ use App\Http\Controllers\DesignerController;
 use App\Http\Controllers\ParadeController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\VanueController;
+use App\Models\Designer;
 use App\Models\Tiket;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -40,11 +42,16 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/designer/generate-ticket/clear', [DesignerController::class, 'generateTicketClear']);
     Route::get('/designer/generate-ticket/download/{designer_id}', [DesignerController::class, 'generateTicketDownload']);
 
-    // Route::get('/ticket', [TicketController::class, 'index']);
-    // Route::get('/ticket/edit', [TicketController::class, 'edit']);
-    // Route::post('/ticket/store', [TicketController::class, 'store']);
-    // Route::post('/ticket/update', [TicketController::class, 'update']);
-    // Route::post('/ticket/delete', [TicketController::class, 'delete']);
+    Route::get('/monitor-tiket', function(Request $r) {
+        $data = [
+            'designer' => Designer::where('id', $r->id)->first()
+        ];
+        return view('monitor-tiket', $data);
+    });
+
+    Route::get('/api/monitor-tiket', function(Request $r) {
+        return Tiket::with('designer')->where('designer_id', $r->id)->get();
+    });
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
