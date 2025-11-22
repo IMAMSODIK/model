@@ -45,7 +45,7 @@ class DesignerController extends Controller
             if($tiket->is_hadir){
                 return response()->json([
                     'status' => false,
-                    'message' => 'Data tidak ditemukan'
+                    'message' => 'Tiket sudah digunakan'
                 ]);
             }else{
                 $tiket->nama_pemilik = $r->nama;
