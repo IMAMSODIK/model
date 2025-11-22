@@ -41,12 +41,20 @@ class DesignerController extends Controller
 
         try {
             $tiket = Tiket::findOrFail($id);
-            $tiket->nama_pemilik = $r->nama;
-            $tiket->kontak_pemilik = $r->kontak;
-            $tiket->is_hadir = 1;
-            $tiket->save();
 
-            return response()->json($tiket);
+            if($tiket->is_hadir){
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data tidak ditemukan'
+                ]);
+            }else{
+                $tiket->nama_pemilik = $r->nama;
+                $tiket->kontak_pemilik = $r->kontak;
+                $tiket->is_hadir = 1;
+                $tiket->save();
+
+                return response()->json($tiket);
+            }
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Data tidak ditemukan'

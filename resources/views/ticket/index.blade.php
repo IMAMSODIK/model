@@ -457,14 +457,26 @@
                     _token: $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(res) {
-                    alert('Data berhasil dikirim!');
-                    setTimeout(() => {
-                        location.href="/"
-                    }, 1000);
+                    if (res.status === false) {
+                        // Pesan error dari server
+                        alert(res.message || 'Data tidak valid.');
+                    } else {
+                        alert('Data berhasil dikirim!');
+                        setTimeout(() => {
+                            location.href = "/";
+                        }, 1000);
+                    }
                 },
                 error: function(err) {
                     console.error(err);
-                    alert('Terjadi kesalahan saat mengirim data.');
+
+                    // Cek apakah server mengirim JSON dengan message
+                    let msg = 'Terjadi kesalahan saat mengirim data.';
+                    if (err.responseJSON && err.responseJSON.message) {
+                        msg = err.responseJSON.message;
+                    }
+
+                    alert(msg);
                 }
             });
         });
