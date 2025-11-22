@@ -1448,18 +1448,18 @@
     <div class="cursor"></div>
     <div class="cursor-border"></div>
     <header>
-        <a href="#home" class="logo logo-wrapper">
+        <a href="#home" class="logo logo-wrapper" style="margin-top: 30px">
             <img width="450px" src="{{asset('own_assets/logo/logo.png')}}" alt="Logo" />
         </a>
 
         <nav class="site-nav">
             <ul class="underline-menu">
                 <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
+                {{-- <li><a href="#about">About</a></li>
                 <li><a href="#speakers">Speakers</a></li>
                 <li><a href="#schedule">Schedule</a></li>
                 <li><a href="#location">Location</a></li>
-                <li><a href="#sponsors">Sponsors</a></li>
+                <li><a href="#sponsors">Sponsors</a></li> --}}
             </ul>
         </nav>
     </header>
@@ -1473,24 +1473,24 @@
     <nav class="burger-nav">
         <ul>
             <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
+            {{-- <li><a href="#about">About</a></li>
             <li><a href="#speakers">Speakers</a></li>
             <li><a href="#schedule">Schedule</a></li>
             <li><a href="#location">Location</a></li>
-            <li><a href="#sponsors">Sponsors</a></li>
+            <li><a href="#sponsors">Sponsors</a></li> --}}
         </ul>
     </nav>
     <main>
         <section class="hero-section" id="home">
             <h1>
-                中国第五届CSS开发者大会
+                APPMI
             </h1>
-            <h2>03.30 / 深圳</h2>
-            <a class="btn btn-ghost btn-through" href="https://www.yuque.com/cssconf/5th" target="_blank">
+            <h2>Asosiasi Perancang Pengusaha Mode Indonesia</h2>
+            {{-- <a class="btn btn-ghost btn-through" href="https://www.yuque.com/cssconf/5th" target="_blank">
                 大会PPT及视频
-            </a>
+            </a> --}}
         </section>
-        <section class="normal-section" id="about">
+        {{-- <section class="normal-section" id="about">
             <div class="titles">
                 <h1 class="cross-bar-glitch" data-slice="20">ABOUT</h1>
                 <h2 class="staggered-rise-in">大会简介</h2>
@@ -1832,7 +1832,7 @@
                     <div>支持社区</div>
                 </li>
             </ul>
-        </section>
+        </section> --}}
     </main>
 
 
