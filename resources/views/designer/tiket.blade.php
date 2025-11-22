@@ -156,7 +156,7 @@
                                                 @endif
                                                 <td class="align-middle text-center">{{ $d->kode_tiket }}</td>
                                                 <td class="align-middle text-center">
-                                                    @if ($d->status_kehadiran)
+                                                    @if ($d->is_hadir)
                                                         <span class="badge text-bg-success">Hadir</span>
                                                     @else
                                                         <span class="badge text-bg-danger">Belum Hadir</span>
