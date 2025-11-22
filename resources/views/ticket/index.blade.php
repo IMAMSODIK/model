@@ -459,7 +459,7 @@
                 success: function(res) {
                     alert('Data berhasil dikirim!');
                     setTimeout(() => {
-                        location.reload()
+                        location.href="/"
                     }, 1000);
                 },
                 error: function(err) {
