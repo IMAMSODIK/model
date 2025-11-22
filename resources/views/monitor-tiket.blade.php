@@ -23,7 +23,7 @@
 <body>
 
 <h2>Monitor Tiket</h2>
-<input type="hidden" id="{{$designer->id}}">
+<input type="hidden" id="id" value="{{$designer->id}}">
 <div class="card-container" id="tiketContainer">
     <!-- Card tiket akan muncul di sini -->
 </div>
