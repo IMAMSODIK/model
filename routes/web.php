@@ -6,6 +6,7 @@ use App\Http\Controllers\DesignerController;
 use App\Http\Controllers\ParadeController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\VanueController;
+use App\Models\Tiket;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,8 +17,11 @@ Route::get('/', function () {
     return view('welcome', $data);
 });
 
+Route::get('/designer/ticket-verification', [DesignerController::class, 'verifikasi']);
+Route::get('/designer/ticket-verification', [DesignerController::class, 'verifikasiProses']);
+
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index']); 
+    Route::get('/dashboard', [DashboardController::class, 'index']);
 
     Route::get('/parade', [ParadeController::class, 'index']);
     Route::get('/parade/edit', [ParadeController::class, 'edit']);
@@ -30,12 +34,17 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/designer/store', [DesignerController::class, 'store']);
     Route::post('/designer/update', [DesignerController::class, 'update']);
     Route::post('/designer/delete', [DesignerController::class, 'delete']);
+    Route::get('/designer/ticket', [DesignerController::class, 'ticket']);
+    Route::post('/designer/generate-ticket', [DesignerController::class, 'generateTicket']);
+    Route::post('/designer/generate-ticket/delete', [DesignerController::class, 'generateTicketDelete']);
+    Route::post('/designer/generate-ticket/clear', [DesignerController::class, 'generateTicketClear']);
+    Route::get('/designer/generate-ticket/download/{designer_id}', [DesignerController::class, 'generateTicketDownload']);
 
-    Route::get('/ticket', [TicketController::class, 'index']);
-    Route::get('/ticket/edit', [TicketController::class, 'edit']);
-    Route::post('/ticket/store', [TicketController::class, 'store']);
-    Route::post('/ticket/update', [TicketController::class, 'update']);
-    Route::post('/ticket/delete', [TicketController::class, 'delete']);
+    // Route::get('/ticket', [TicketController::class, 'index']);
+    // Route::get('/ticket/edit', [TicketController::class, 'edit']);
+    // Route::post('/ticket/store', [TicketController::class, 'store']);
+    // Route::post('/ticket/update', [TicketController::class, 'update']);
+    // Route::post('/ticket/delete', [TicketController::class, 'delete']);
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

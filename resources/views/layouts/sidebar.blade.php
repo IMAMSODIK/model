@@ -50,13 +50,6 @@
                         <span>Designer</span>
                     </a>
                 </li>
-
-                <li class="sidebar-list">
-                    <a class="sidebar-link sidebar-title link-nav" href="/ticket">
-                        <i class="fa fa-clipboard-list text-white"></i>
-                        <span>Ticket</span>
-                    </a>
-                </li>
             </ul>
             <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
         </div>

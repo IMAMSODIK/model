@@ -126,9 +126,13 @@
 
                                                 {{-- Aksi --}}
                                                 <td class="text-center">
-                                                    <button data-id="{{ $d->id }}" class="btn btn-warning btn-sm edit">Edit</button>
-                                                    <button data-id="{{ $d->id }}" class="btn btn-danger btn-sm hapus">Hapus</button>
+                                                    <div class="d-flex justify-content-center gap-2">
+                                                        <button data-id="{{ $d->id }}" class="btn btn-warning btn-sm edit">Edit</button>
+                                                        <button data-id="{{ $d->id }}" class="btn btn-danger btn-sm hapus">Hapus</button>
+                                                        <a href="/designer/ticket?id={{$d->id}}" class="btn btn-info btn-sm tiket">Tiket</a>
+                                                    </div>
                                                 </td>
+
                                             </tr>
                                         @endforeach
                                     </tbody>
