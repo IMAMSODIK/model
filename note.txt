@@ -62,7 +62,7 @@ inputkan jumlah tiket reguler
 
 
 - tombol hapus dan download (done)
-- download => download semua gambar yang belum di download dan buatkan ke zip
 - halaman scan barcode (untuk status hadi atau tidak) (done)
-- live view status pengunjung
+- live view status pengunjung (done)
+- download => download semua gambar yang belum di download dan buatkan ke zip
 - ketika edit designer, jika sudah generate tiket tampilkan alert (hapus tiket yang ada dahulu)

@@ -35,7 +35,7 @@
         </div>
         <div class="nav-right col-xxl-7 col-xl-6 col-md-7 col-8 pull-right right-header p-0 ms-auto">
             <ul class="nav-menus">
-                <li class="d-md-block d-none">
+                {{-- <li class="d-md-block d-none">
                     <div class="form search-form mb-0">
                         <div class="input-group"><span class="input-icon">
                                 <svg>
@@ -45,8 +45,8 @@
                                 </svg>
                                 <input class="w-100" type="search" placeholder="Search"></span></div>
                     </div>
-                </li>
-                <li class="d-md-none d-block">
+                </li> --}}
+                {{-- <li class="d-md-none d-block">
                     <div class="form search-form mb-0">
                         <div class="input-group"> <span class="input-show">
                                 <svg id="searchIcon">
@@ -59,8 +59,8 @@
                                 </div>
                             </span></div>
                     </div>
-                </li>
-                <li class="onhover-dropdown">
+                </li> --}}
+                {{-- <li class="onhover-dropdown">
                     <svg>
                         <use href="{{ asset('dashboard_assets/assets/svg/icon-sprite.svg#star') }}"></use>
                     </svg>
@@ -111,11 +111,11 @@
                             </div>
                         </div>
                     </div>
-                </li>
+                </li> --}}
                 <li>
                     <div class="mode"><i class="moon" data-feather="moon"> </i></div>
                 </li>
-                <li class="onhover-dropdown notification-down">
+                {{-- <li class="onhover-dropdown notification-down">
                     <div class="notification-box">
                         <svg>
                             <use href="{{ asset('dashboard_assets/assets/svg/icon-sprite.svg#notification-header') }}">
@@ -408,7 +408,7 @@
                             </div>
                         </div>
                     </div>
-                </li>
+                </li> --}}
                 <li class="profile-nav onhover-dropdown">
                     <div class="media profile-media"><img class="b-r-10"
                             src="{{ asset('dashboard_assets/assets/images/dashboard/profile.png') }}" alt="">
@@ -419,11 +419,11 @@
                         </div>
                     </div>
                     <ul class="profile-dropdown onhover-show-div">
-                        <li><a href="/profile"><i data-feather="user"></i><span>My Profile</span></a>
+                        {{-- <li><a href="/profile"><i data-feather="user"></i><span>My Profile</span></a>
                         </li>
                         <li><a href="letter-box.html"><i data-feather="mail"></i><span>Inbox</span></a></li>
                         <li> <a href="edit-profile.html"> <i data-feather="settings"></i><span>Settings</span></a>
-                        </li>
+                        </li> --}}
                         <li>
                             <a class="btn btn-pill btn-outline-primary btn-sm" id="logout">Log Out</a>
                         </li>
