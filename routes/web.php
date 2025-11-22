@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/designer/ticket-verification', [DesignerController::class, 'verifikasi']);
-Route::get('/designer/ticket-verification', [DesignerController::class, 'verifikasiProses']);
+Route::post('/designer/ticket-verification', [DesignerController::class, 'verifikasiProses']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
