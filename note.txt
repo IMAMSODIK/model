@@ -18,3 +18,42 @@ tiket
         - jenis_tiket
         - status
         - qrcode
+
+
+
+apakah generate tiket cuman sekali
+apakah setelahj generate tiket tidak bisa update brand lagi
+apakah tiket bisa dihapus
+
+
+
+
+
+pembayaran
+        -  input hari
+        -  total harga
+        -  bukti  bayar
+kit
+
+
+
+master parade
+        - nama parade
+        - gambar
+        - tanggal
+        - jam mulai
+        - jam berakhir
+        - vanue
+
+designer
+        - nama designer
+        - parade_id
+
+generate tiket
+        - designer_id
+        - parade_id
+        - tiket_type
+        - tiket_code
+        - status_kehadiran
+        - nama
+        - no_hp

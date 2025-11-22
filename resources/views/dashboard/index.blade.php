@@ -104,183 +104,155 @@
     </div>
 
     <div class="container-fluid">
-        <div class="row size-column">
-            <div class="col-xl-3 col-sm-6">
-                <div class="card o-hidden small-widget">
-                    <div class="card-body total-upcoming"><span
-                            class="f-light f-w-500 f-14">Absensi Hari 1</span>
-                        <div class="project-details">
-                            <div class="project-counter">
-                                <h2 class="f-w-600">0</h2><span class="f-12 f-w-400">(Peserta)</span>
+        {{-- @if (auth()->user()->role == 'owner')
+            <div class="row size-column">
+                <div class="col-xl-4 col-sm-6">
+                    <div class="card o-hidden small-widget">
+                        <div class="card-body total-upcoming"><span class="f-light f-w-500 f-14">Total Tiket</span>
+                            <div class="project-details">
+                                <div class="project-counter">
+                                    <h2 class="f-w-600">0</h2><span class="f-12 f-w-400">(Tiket)</span>
+                                </div>
+                                <div class="product-sub bg-secondary-light">
+                                    <i class="fa fa-user-check text-white"></i>
+                                </div>
                             </div>
-                            <div class="product-sub bg-secondary-light">
-                                <i class="fa fa-user-check text-white"></i>
-                            </div>
+                            <ul class="bubbles">
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                            </ul>
                         </div>
-                        <ul class="bubbles">
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6">
+                    <div class="card o-hidden small-widget">
+                        <div class="card-body total-upcoming"><span class="f-light f-w-500 f-14">Tiket VVIP</span>
+                            <div class="project-details">
+                                <div class="project-counter">
+                                    <h2 class="f-w-600">0</h2><span class="f-12 f-w-400">(Tiket)</span>
+                                </div>
+                                <div class="product-sub bg-secondary-light">
+                                    <i class="fa fa-user-check text-white"></i>
+                                </div>
+                            </div>
+                            <ul class="bubbles">
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6">
+                    <div class="card o-hidden small-widget">
+                        <div class="card-body total-upcoming"><span class="f-light f-w-500 f-14">Tiket Reguler</span>
+                            <div class="project-details">
+                                <div class="project-counter">
+                                    <h2 class="f-w-600">0</h2><span class="f-12 f-w-400">(Tiket)</span>
+                                </div>
+                                <div class="product-sub bg-secondary-light">
+                                    <i class="fa fa-user-check text-white"></i>
+                                </div>
+                            </div>
+                            <ul class="bubbles">
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                                <li class="bubble"></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-sm-6">
-                <div class="card o-hidden small-widget">
-                    <div class="card-body total-upcoming"><span
-                            class="f-light f-w-500 f-14">Absensi Hari 2</span>
-                        <div class="project-details">
-                            <div class="project-counter">
-                                <h2 class="f-w-600">0</h2><span class="f-12 f-w-400">(Peserta)</span>
-                            </div>
-                            <div class="product-sub bg-secondary-light">
-                                <i class="fa fa-user-check text-white"></i>
-                            </div>
-                        </div>
-                        <ul class="bubbles">
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6">
-                <div class="card o-hidden small-widget">
-                    <div class="card-body total-upcoming"><span class="f-light f-w-500 f-14">Absensi
-                            Hari 3</span>
-                        <div class="project-details">
-                            <div class="project-counter">
-                                <h2 class="f-w-600">0</h2><span class="f-12 f-w-400">(Peserta)</span>
-                            </div>
-                            <div class="product-sub bg-secondary-light">
-                                <i class="fa fa-user-check text-white"></i>
-                            </div>
-                        </div>
-                        <ul class="bubbles">
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6">
-                <div class="card o-hidden small-widget">
-                    <div class="card-body total-upcoming"><span class="f-light f-w-500 f-14">Absensi Hari 4</span>
-                        <div class="project-details">
-                            <div class="project-counter">
-                                <h2 class="f-w-600">0</h2><span class="f-12 f-w-400">(Peserta)</span>
-                            </div>
-                            <div class="product-sub bg-secondary-light">
-                                <i class="fa fa-user-check text-white"></i>
-                            </div>
-                        </div>
-                        <ul class="bubbles">
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                            <li class="bubble"></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row size-column">
+            <div class="row size-column">
+                @if (!$designer)
+                    <div class="container py-3">
+                        <div class="row justify-content-center">
+                            <div class="col-md-10 col-lg-6">
 
-            {{-- Jika Belum Ada Data Designer --}}
-            @if (!$designer)
-                <div class="container py-3">
-                    <div class="row justify-content-center">
-                        <div class="col-md-10 col-lg-6">
+                                <div class="mobile-card">
+                                    <h4 class="mobile-title">Lengkapi Data Kamu</h4>
 
-                            <div class="mobile-card">
-                                <h4 class="mobile-title">Lengkapi Data Kamu</h4>
+                                    <form id="designerForm" enctype="multipart/form-data">
+                                        {{ csrf_field() }}
 
-                                <form id="designerForm" enctype="multipart/form-data">
-                                    {{ csrf_field() }}
+                                        <div class="mb-3">
+                                            <label class="mobile-label">Nama Brand</label>
+                                            <input type="text" name="nama" class="form-control mobile-input"
+                                                placeholder="Contoh: Golden Fashion">
+                                            <small class="text-danger error_nama"></small>
+                                        </div>
 
-                                    <div class="mb-3">
-                                        <label class="mobile-label">Nama Brand</label>
-                                        <input type="text" name="nama" class="form-control mobile-input"
-                                            placeholder="Contoh: Golden Fashion">
-                                        <small class="text-danger error_nama"></small>
-                                    </div>
+                                        <div class="mb-3">
+                                            <label class="mobile-label">Tanggal Event</label>
+                                            <input type="date" name="tanggal" class="form-control mobile-input">
+                                            <small class="text-danger error_tanggal"></small>
+                                        </div>
 
-                                    <div class="mb-3">
-                                        <label class="mobile-label">Tanggal Event</label>
-                                        <input type="date" name="tanggal" class="form-control mobile-input">
-                                        <small class="text-danger error_tanggal"></small>
-                                    </div>
+                                        <div class="mb-3">
+                                            <label class="mobile-label">Upload Flayer</label>
+                                            <input type="file" name="flayer" class="form-control mobile-input">
+                                            <small class="text-danger error_flayer"></small>
+                                        </div>
 
-                                    <div class="mb-3">
-                                        <label class="mobile-label">Upload Flayer</label>
-                                        <input type="file" name="flayer" class="form-control mobile-input">
-                                        <small class="text-danger error_flayer"></small>
-                                    </div>
-
-                                    <button class="mobile-btn btn-submit">Simpan</button>
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            @endif
-
-            {{-- Jika Sudah Ada Data Designer --}}
-            @if ($designer)
-                <div class="container py-3">
-                    <div class="row justify-content-center">
-                        <div class="col-md-10 col-lg-6">
-
-                            <div class="designer-display-card">
-
-                                <div class="designer-header">
-                                    <h2 class="m-0" style="color: #b8873b">Designer Information</h2>
+                                        <button class="mobile-btn btn-submit">Simpan</button>
+                                    </form>
                                 </div>
 
-                                <div class="designer-content">
+                            </div>
+                        </div>
+                    </div>
+                @endif
 
-                                    <img src="{{ asset('storage/' . $designer->flayer) }}" class="designer-img mb-3">
+                @if ($designer)
+                    <div class="container py-3">
+                        <div class="row justify-content-center">
+                            <div class="col-md-10 col-lg-6">
 
-                                    <h4 class="mb-1">{{ $designer->nama }}</h4>
-                                    <p class="text-muted">Tanggal: {{ $designer->tanggal }}</p>
+                                <div class="designer-display-card">
+
+                                    <div class="designer-header">
+                                        <h2 class="m-0" style="color: #b8873b">Designer Information</h2>
+                                    </div>
+
+                                    <div class="designer-content">
+
+                                        <img src="{{ asset('storage/' . $designer->flayer) }}" class="designer-img mb-3">
+
+                                        <h4 class="mb-1">{{ $designer->nama }}</h4>
+                                        <p class="text-muted">Tanggal: {{ $designer->tanggal }}</p>
+
+                                    </div>
 
                                 </div>
 
                             </div>
-
                         </div>
                     </div>
-                </div>
-            @endif
+                @endif
 
-        </div>
-
+            </div>
+        @else
+            Dashboard
+        @endif --}}
     </div>
 @endsection
 

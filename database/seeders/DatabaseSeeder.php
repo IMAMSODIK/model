@@ -30,5 +30,9 @@ class DatabaseSeeder extends Seeder
             'email' => 'd1@gmail.com',
             'role' => 'owner'
         ]);
+
+        $this->call([
+            ParadeSeeder::class,
+        ]);
     }
 }

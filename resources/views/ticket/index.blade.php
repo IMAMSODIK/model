@@ -161,74 +161,76 @@
 
 @section('own_script')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        $(document).on("submit", "#ticketForm", function(e) {
-            e.preventDefault();
+    @if ($designer)
+        <script>
+            $(document).on("submit", "#ticketForm", function(e) {
+                e.preventDefault();
 
-            let jumlahVVIP = $("input[name='vvip']").val();
-            let jumlahReguler = $("input[name='reguler']").val();
-            let vanue = $("select[name='vanue_id'] option:selected").val();
+                let jumlahVVIP = $("input[name='vvip']").val();
+                let jumlahReguler = $("input[name='reguler']").val();
+                let vanue = $("select[name='vanue_id'] option:selected").val();
 
-            if (!jumlahVVIP || !jumlahReguler || !vanue) {
-                Swal.fire("Oops", "Semua field wajib diisi sebelum generate!", "warning");
-                return;
-            }
+                if (!jumlahVVIP || !jumlahReguler || !vanue) {
+                    Swal.fire("Oops", "Semua field wajib diisi sebelum generate!", "warning");
+                    return;
+                }
 
-            // gambar template dari designer->flayer
-            let template = `{{ asset('storage/' . $designer->flayer) }}`;
+                // gambar template dari designer->flayer
+                let template = `{{ asset('storage/' . $designer->flayer) }}`;
 
-            // kosongkan tempat sebelumnya
-            $("#vvipTicketWrap").empty();
-            $("#regulerTicketWrap").empty();
+                // kosongkan tempat sebelumnya
+                $("#vvipTicketWrap").empty();
+                $("#regulerTicketWrap").empty();
 
-            // --- GENERATE TIKET ---
-            function generateImageElement() {
-                return `
-        <div class="col-3">
-            <div class="ticket-box border rounded overflow-hidden">
-                <img src="${template}" class="img-fluid">
-            </div>
-        </div>`;
-            }
+                // --- GENERATE TIKET ---
+                function generateImageElement() {
+                    return `
+            <div class="col-3">
+                <div class="ticket-box border rounded overflow-hidden">
+                    <img src="${template}" class="img-fluid">
+                </div>
+            </div>`;
+                }
 
-            // VVIP
-            for (let i = 0; i < jumlahVVIP; i++) {
-                $("#vvipTicketWrap").append(generateImageElement());
-            }
+                // VVIP
+                for (let i = 0; i < jumlahVVIP; i++) {
+                    $("#vvipTicketWrap").append(generateImageElement());
+                }
 
-            // REGULER
-            for (let i = 0; i < jumlahReguler; i++) {
-                $("#regulerTicketWrap").append(generateImageElement());
-            }
+                // REGULER
+                for (let i = 0; i < jumlahReguler; i++) {
+                    $("#regulerTicketWrap").append(generateImageElement());
+                }
 
-            // tampilkan preview
-            $("#ticketPreview").slideDown();
+                // tampilkan preview
+                $("#ticketPreview").slideDown();
 
-            Swal.fire({
-                title: "Berhasil!",
-                text: "Tiket berhasil digenerate. Lihat di bawah!",
-                icon: "success",
-                timer: 1800
+                Swal.fire({
+                    title: "Berhasil!",
+                    text: "Tiket berhasil digenerate. Lihat di bawah!",
+                    icon: "success",
+                    timer: 1800
+                });
             });
-        });
 
 
-        // --- TAB SWITCHING ---
-        $(document).on("click", "#ticketTabs .nav-link", function(e) {
-            e.preventDefault();
+            // --- TAB SWITCHING ---
+            $(document).on("click", "#ticketTabs .nav-link", function(e) {
+                e.preventDefault();
 
-            $("#ticketTabs .nav-link").removeClass("active");
-            $(this).addClass("active");
+                $("#ticketTabs .nav-link").removeClass("active");
+                $(this).addClass("active");
 
-            let type = $(this).data("type");
+                let type = $(this).data("type");
 
-            if (type === "vvip") {
-                $("#vvipTicketWrap").show();
-                $("#regulerTicketWrap").hide();
-            } else {
-                $("#vvipTicketWrap").hide();
-                $("#regulerTicketWrap").show();
-            }
-        });
-    </script>
+                if (type === "vvip") {
+                    $("#vvipTicketWrap").show();
+                    $("#regulerTicketWrap").hide();
+                } else {
+                    $("#vvipTicketWrap").hide();
+                    $("#regulerTicketWrap").show();
+                }
+            });
+        </script>
+    @endif
 @endsection

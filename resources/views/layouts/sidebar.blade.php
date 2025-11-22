@@ -36,39 +36,27 @@
                     </div>
                 </li>
 
-                @if (auth()->user()->role == 'admin')
-                    <li class="sidebar-list">
-                        <i class="fa fa-thumb-tack"></i>
-                        <a class="sidebar-link sidebar-title link-nav" href="/designer-group">
-                            <i class="fa fa-users text-white"></i>
-                            <span>Designer Group</span>
-                        </a>
-                    </li>
-                @endif
+                <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title link-nav" href="/parade">
+                        <i class="fa fa-flag text-white"></i>
+                        <span>Parade</span>
+                    </a>
+                </li>
 
-                @if (auth()->user()->role == 'owner')
-                    <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title link-nav" href="/dashboard">
-                            <i class="fa fa-cog text-white"></i>
-                            <span>Pengaturan</span>
-                        </a>
-                    </li>
+                <li class="sidebar-list">
+                    <i class="fa fa-thumb-tack"></i>
+                    <a class="sidebar-link sidebar-title link-nav" href="/designer">
+                        <i class="fa fa-users text-white"></i>
+                        <span>Designer</span>
+                    </a>
+                </li>
 
-
-                    <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title link-nav" href="/vanue">
-                            <i class="fa fa-building text-white"></i>
-                            <span>Vanue</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title link-nav" href="/ticket">
-                            <i class="fa fa-clipboard-list text-white"></i>
-                            <span>Ticket</span>
-                        </a>
-                    </li>
-                @endif
+                <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title link-nav" href="/ticket">
+                        <i class="fa fa-clipboard-list text-white"></i>
+                        <span>Ticket</span>
+                    </a>
+                </li>
             </ul>
             <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
         </div>

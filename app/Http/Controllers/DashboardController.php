@@ -10,11 +10,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $designer = \App\Models\Designer::where('user_id', auth()->id())->first();
-
         return view('dashboard.index', [
             'pageTitle' => 'Dashboard',
-            'designer'  => $designer
         ]);
     }
 }
