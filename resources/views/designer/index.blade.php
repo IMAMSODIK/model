@@ -130,6 +130,12 @@
                                                         <button data-id="{{ $d->id }}" class="btn btn-warning btn-sm edit">Edit</button>
                                                         <button data-id="{{ $d->id }}" class="btn btn-danger btn-sm hapus">Hapus</button>
                                                         <a href="/designer/ticket?id={{$d->id}}" class="btn btn-info btn-sm tiket">Tiket</a>
+                                                        <div class="d-flex justify-content-center gap-1">
+                                                            <a href="/monitor-tiket?id={{ $d->id }}" class="btn btn-sm btn-info">
+                                                                <i class="fas fa-desktop"></i>
+                                                            </a>
+                                                        </div>
+
                                                     </div>
                                                 </td>
 

@@ -172,9 +172,6 @@
                                                         <button class="btn btn-sm btn-danger hapus"
                                                             data-id="{{ $d->id }}">Hapus</button>
                                                     </div>
-                                                    <div class="d-flex justify-content-center gap-1">
-                                                        <a href="/monitor-tiket?id={{ $d->id }}" class="btn btn-sm btn-info">MOnitor</button>
-                                                    </div>
 
                                                 </td>
                                             </tr>
