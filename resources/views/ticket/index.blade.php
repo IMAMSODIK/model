@@ -458,8 +458,7 @@
                 },
                 success: function(res) {
                     if (res.status === false) {
-                        // Pesan error dari server
-                        alert(res.message || 'Data tidak valid.');
+                        alert(res.message || 'Tiket sudah digunakan');
                     } else {
                         alert('Data berhasil dikirim!');
                         setTimeout(() => {
