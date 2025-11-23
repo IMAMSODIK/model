@@ -16,7 +16,7 @@
                                 </svg></a></li>
                         <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
                         <li class="breadcrumb-item"><a href="/designer">Tiket</a></li>
-                        <li class="breadcrumb-item active">{{$data->nama}}</li>
+                        <li class="breadcrumb-item active">{{ $data->nama }}</li>
                     </ol>
                 </div>
             </div>
@@ -30,7 +30,8 @@
                     <div class="card-body total-upcoming"><span class="f-light f-w-500 f-14">Total Tiket</span>
                         <div class="project-details">
                             <div class="project-counter">
-                                <h2 class="f-w-600">{{$data->tiket->count()}}</h2><span class="f-12 f-w-400">(Tiket)</span>
+                                <h2 class="f-w-600">{{ $data->tiket->count() }}</h2><span
+                                    class="f-12 f-w-400">(Tiket)</span>
                             </div>
                             <div class="product-sub bg-secondary-light">
                                 <i class="fa fa-flag text-white"></i>
@@ -56,7 +57,8 @@
                     <div class="card-body total-upcoming"><span class="f-light f-w-500 f-14">Total Tiket VVIP</span>
                         <div class="project-details">
                             <div class="project-counter">
-                                <h2 class="f-w-600">{{ $data->tiket->where('tipe_tiket', 'vvip')->count() }}</h2><span class="f-12 f-w-400">(Tiket VVIP)</span>
+                                <h2 class="f-w-600">{{ $data->tiket->where('tipe_tiket', 'vvip')->count() }}</h2><span
+                                    class="f-12 f-w-400">(Tiket VVIP)</span>
                             </div>
                             <div class="product-sub bg-secondary-light">
                                 <i class="fa fa-flag text-white"></i>
@@ -82,7 +84,8 @@
                     <div class="card-body total-upcoming"><span class="f-light f-w-500 f-14">Total Tiket Reguler</span>
                         <div class="project-details">
                             <div class="project-counter">
-                                <h2 class="f-w-600">{{ $data->tiket->where('tipe_tiket', 'reguler')->count() }}</h2><span class="f-12 f-w-400">(Tiket Reguler)</span>
+                                <h2 class="f-w-600">{{ $data->tiket->where('tipe_tiket', 'reguler')->count() }}</h2><span
+                                    class="f-12 f-w-400">(Tiket Reguler)</span>
                             </div>
                             <div class="product-sub bg-secondary-light">
                                 <i class="fa fa-flag text-white"></i>
@@ -110,10 +113,12 @@
                     <div class="card-body">
                         <div class="col-12 mb-3 d-flex justify-content-end">
                             @if ($data->tiket->count() > 0)
-                                <button class="btn btn-danger" style="margin-right: 5px" id="clear-tiket" data-id="{{ $data->id }}">
+                                <button class="btn btn-danger" style="margin-right: 5px" id="clear-tiket"
+                                    data-id="{{ $data->id }}">
                                     Hapus Tiket
                                 </button>
-                                <button class="btn btn-info" style="margin-right: 5px" id="download-tiket" data-id="{{ $data->id }}">
+                                <button class="btn btn-info" style="margin-right: 5px" id="download-tiket"
+                                    data-id="{{ $data->id }}">
                                     Download Tiket
                                 </button>
                             @endif
@@ -243,6 +248,12 @@
         border-radius: 12px;
     ">
     </div>
+
+    <input type="hidden" id="vanue" value="{{ $data->parade->vanue }}">
+    <input type="hidden" id="date" value="{{ $data->parade->tanggal }}">
+    <input type="hidden" id="jam_mulai" value="{{ $data->parade->jam_mulai }}">
+    <input type="hidden" id="jam_selesai" value="{{ $data->parade->jam_selesai }}">
+    <input type="hidden" id="nama" value="{{ $data->nama }}">
 @endsection
 
 @section('own_script')
@@ -255,6 +266,8 @@
 
 
     <script>
+        let designerList = @json($data->parade->designer->pluck('nama'));
+        console.log(designerList);
         async function generateAndUploadTicket(type, templatePath) {
             return new Promise(async (resolve) => {
 
@@ -263,85 +276,111 @@
                 let kode = prefix + "-" + Date.now() + "-" + Math.random().toString(36).substr(2, 4)
                     .toUpperCase();
 
-                // 2. Generate QRCode ke elemen sementara
+                // 2. Generate QRCode (elemen sementara)
                 let tempQR = document.createElement("div");
                 new QRCode(tempQR, {
-                    text: "https://delipark-runwayrave-2025.com/designer/ticket-verification?kode=" + kode,
+                    text: "https://delipark-runwayrave-2025.com/designer/ticket-verification?kode=" +
+                        kode,
                     width: 450,
                     height: 450
                 });
-
                 await new Promise(r => setTimeout(r, 300)); // tunggu QR muncul
 
-                // ============================
-                // FIX: Ambil QR <img> / <canvas>
-                // ============================
                 let qrEl = tempQR.querySelector("img") || tempQR.querySelector("canvas");
-                let qrImgSrc;
-
-                if (qrEl.tagName.toLowerCase() === "img") {
-                    qrImgSrc = qrEl.src;
-                } else {
-                    qrImgSrc = qrEl.toDataURL("image/png");
-                }
-                // ============================
+                let qrImgSrc = (qrEl.tagName.toLowerCase() === "img") ? qrEl.src : qrEl.toDataURL(
+                    "image/png");
 
                 // 3. Load template
                 let template = new Image();
                 template.src = templatePath;
 
                 template.onload = function() {
+
                     let canvas = document.getElementById("ticketCanvas");
                     let ctx = canvas.getContext("2d");
 
-                    // FIX: Samakan ukuran canvas dengan template
+                    // sesuaikan ukuran canvas dengan template
                     canvas.width = template.width;
                     canvas.height = template.height;
 
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                    // FIX: Gambar template tanpa resize
+                    // gambar template
                     ctx.drawImage(template, 0, 0);
 
-                    // 4. tempel QR ke template
+                    // 4. gambar QR
                     let qrImg = new Image();
                     qrImg.src = qrImgSrc;
 
                     qrImg.onload = async function() {
 
-                        // ============================
-                        // FIX: Sesuaikan posisi QR agar tidak keluar area
-                        // ============================
-                        let posX = 325;
-                        let posY = 1190;
+                        // posisi QR sesuai kotak putih
+                        let qrX = 390; // center
+                        let qrY = 1450;
+                        let qrSize = 300;
 
-                        if (posX + 450 > canvas.width) {
-                            posX = canvas.width - 460;
-                        }
-                        if (posY + 250 > canvas.height) {
-                            posY = canvas.height - 260;
-                        }
-                        // ============================
+                        ctx.drawImage(qrImg, qrX, qrY, qrSize, qrSize);
 
-                        ctx.drawImage(qrImg, posX, posY, 250, 250);
+                        // 5. ambil data tambahan
+                        let namaDesigner = $("#nama").val();
+                        let tanggal = $("#date").val();
+                        let jamMulai = $("#jam_mulai").val().substring(0, 5);
+                        let jamSelesai = $("#jam_selesai").val().substring(0, 5);
+                        let venue = $("#vanue").val();
 
-                        // 5. Tulis text kode tiket
-                        ctx.font = "bold 60px Arial";
+                        // === FORMAT TANGGAL ===
+                        let dateObj = new Date(tanggal);
+                        let bulan = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu",
+                            "Sep", "Okt", "Nov", "Des"
+                        ];
+                        let formattedDate = dateObj.getDate() + " " + bulan[dateObj
+                        .getMonth()] + " " + dateObj.getFullYear();
+
+                        // === FORMAT JAM ===
+                        let formattedTime = jamMulai + " - " + jamSelesai;
+
+                        // 6. TULIS TEKS KE TEMPLATE
                         ctx.fillStyle = "#FFFFFF";
+                        ctx.font = "35px Arial";
 
-                        let textX = 1200;
-                        let textY = 1550;
+                        // NAME
+                        let text = namaDesigner;
+                        let textWidth = ctx.measureText(text).width;
+                        let x = (canvas.width - textWidth) / 2;
+                        ctx.fillText(text, x, 1220);
 
-                        if (textY > canvas.height) {
-                            textY = canvas.height - 200;
+                        // VENUE
+                        ctx.fillText("" + venue, 65, 1320);
+
+                        // KODE
+                        ctx.fillText("" + kode, 625, 1320);
+
+                        // TANGGAL (BARIS 1)
+                        ctx.fillText(formattedDate, 65, 1430);
+
+                        // JAM (BARIS 2)
+                        ctx.fillText(formattedTime, 65, 1485);
+
+                        // TIPE
+                        if(type == 'vvip'){
+                            ctx.fillText("" + type.toUpperCase(), 928, 1430);
+                        }else{
+                            ctx.fillText("" + type.toUpperCase(), 835, 1430);
                         }
 
-                        ctx.fillText(kode, textX, textY);
+                        ctx.fillStyle = "#FFFFFF";
+                        ctx.font = "bold 38px Arial";
+                        let startY = 530;
+                        let lineHeight = 50;
 
-                        // 6. hasilkan base64
+                        designerList.forEach((nama, index) => {
+                            ctx.fillText("• " + nama, 520, startY + (index * lineHeight));
+                        });
+
+                        // 7. hasilkan base64
                         let base64 = canvas.toDataURL("image/jpeg", 0.95);
 
-                        // 7. Kirim ke server via AJAX
+                        // 8. Kirim ke server via AJAX
                         $.ajax({
                             url: "/designer/generate-ticket",
                             method: "POST",
@@ -360,10 +399,12 @@
                                 resolve(false);
                             }
                         });
+
                     };
                 };
             });
         }
+
 
         $("#btnSubmitGenerate").click(async function() {
             let vvip = parseInt($("#tiketVVIP").val());
