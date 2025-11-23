@@ -286,10 +286,6 @@
                             readonly>
                     </div>
                     <div class="form-item box-item">
-                        <input type="text" name="name" value="{{ $ticket->designer->nama }}" data-required
-                            readonly>
-                    </div>
-                    <div class="form-item box-item">
                         <input type="text" name="venue" value="{{ $ticket->designer->parade->vanue }}"
                             data-required readonly>
                     </div>
