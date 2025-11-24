@@ -210,13 +210,14 @@ class DesignerController extends Controller
         $tikets = Tiket::where('designer_id', $designer_id)
             ->where('is_downloaded', 0)
             ->get();
+        $designer = Designer::where('id', $designer_id)->first();
 
         if ($tikets->count() === 0) {
             return back()->with('error', 'Tidak ada tiket baru untuk di-download.');
         }
 
         // 2. Nama file ZIP
-        $zipFileName = 'tiket-designer-' . $designer_id . '-' . time() . '.zip';
+        $zipFileName = 'tiket-' . $designer->nama . '-' . $designer->parade->nama . '.zip';
         $zipPath = storage_path('app/public/' . $zipFileName);
 
         // 3. Buat ZIP
