@@ -307,11 +307,14 @@
                         </div>
                     </div>
                     <div class="form-item box-item">
-                        <input type="text" name="nama_user" id="nama" required placeholder="Masukin nama kamu">
+                        <input type="text" name="nama_user" id="nama" required placeholder="Nama">
                     </div>
                     <div class="form-item box-item">
                         <input type="text" name="kontak_user" id="kontak" required
-                            placeholder="Masukin Nomor Telfon kamu">
+                            placeholder="Nomor Telfon">
+                    </div>
+                    <div class="form-item box-item">
+                        <input type="text" name="token" id="token" required placeholder="Token">
                     </div>
                     <div class="form-item">
                         <span id="submit" class="submit">Submit</span>
@@ -450,6 +453,7 @@
                     id: id,
                     nama: nama,
                     kontak: kontak,
+                    token: token,
                     _token: $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(res) {

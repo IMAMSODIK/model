@@ -41,20 +41,27 @@ class DesignerController extends Controller
         $id = $r->id;
 
         try {
-            $tiket = Tiket::findOrFail($id);
+            if($r->token == "password_test"){
+                $tiket = Tiket::findOrFail($id);
 
-            if ($tiket->is_hadir) {
+                if ($tiket->is_hadir) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Tiket sudah digunakan'
+                    ]);
+                } else {
+                    $tiket->nama_pemilik = $r->nama;
+                    $tiket->kontak_pemilik = $r->kontak;
+                    $tiket->is_hadir = 1;
+                    $tiket->save();
+
+                    return response()->json($tiket);
+                }
+            }else{
                 return response()->json([
                     'status' => false,
-                    'message' => 'Tiket sudah digunakan'
+                    'message' => 'Token yang anda masukkan salah'
                 ]);
-            } else {
-                $tiket->nama_pemilik = $r->nama;
-                $tiket->kontak_pemilik = $r->kontak;
-                $tiket->is_hadir = 1;
-                $tiket->save();
-
-                return response()->json($tiket);
             }
         } catch (\Exception $e) {
             return response()->json([
