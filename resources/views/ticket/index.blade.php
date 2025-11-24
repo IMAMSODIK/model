@@ -440,9 +440,10 @@
             let id = $('#id').val();
             let nama = $('#nama').val();
             let kontak = $('#kontak').val();
+            let token = $('#token').val();
 
-            if (!nama || !kontak) {
-                alert('Nama dan kontak harus diisi!');
+            if (!nama || !kontak || !token) {
+                alert('Nama, Kontak dan Token harus diisi!');
                 return;
             }
 
