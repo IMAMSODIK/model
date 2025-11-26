@@ -386,9 +386,9 @@
             $("#generate").prop("disabled", false).text("Generate");
             alert("Seluruh tiket berhasil digenerate!");
 
-            setTimeout(function() {
-                location.reload();
-            }, 1000)
+            // setTimeout(function() {
+            //     location.reload();
+            // }, 1000)
         });
     </script>
 
