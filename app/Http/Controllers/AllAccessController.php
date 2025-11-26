@@ -11,7 +11,7 @@ class AllAccessController extends Controller
     public function index()
     {
         $data = [
-            'ticket' => Tiket::where('tipe_tiket', 'aa')->get(),
+            'tiket' => Tiket::where('tipe_tiket', 'aa')->get(),
             'pageTitle' => 'All Access',
         ];
 
