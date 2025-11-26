@@ -28,7 +28,7 @@
                     <div class="card-body total-upcoming"><span class="f-light f-w-500 f-14">Total Tiket All Access</span>
                         <div class="project-details">
                             <div class="project-counter">
-                                <h2 class="f-w-600">0</h2><span class="f-12 f-w-400">(Tiket)</span>
+                                <h2 class="f-w-600">{{$tiket->count()}}</h2><span class="f-12 f-w-400">(Tiket)</span>
                             </div>
                             <div class="product-sub bg-secondary-light">
                                 <i class="fa fa-users text-white"></i>
