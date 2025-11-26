@@ -79,7 +79,13 @@
                                             <tr>
                                                 <td class="text-center">{{ $i++ }}</td>
 
-                                                <td>{{ $d->nama }}</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                            <img src="{{ asset('storage/all_access/' . $d->gambar_tiket) }}"
+                                                                alt="gambar parade"
+                                                                style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px; margin-right:10px;">
+                                                    </div>
+                                                </td>
                                                 <td>
                                                     {{-- @if ($d->parade)
                                                         <div class="d-flex align-items-center">
