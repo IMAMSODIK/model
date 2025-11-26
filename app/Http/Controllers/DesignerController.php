@@ -191,9 +191,18 @@ class DesignerController extends Controller
         ]);
 
         // --- 1. pastikan folder public/tickets ada ---
-        $ticketsPath = public_path('storage/all_access');
-        if (!File::exists($ticketsPath)) {
-            File::makeDirectory($ticketsPath, 0777, true, true);
+        if($r->tipe == 'aa'){
+            $pathCtr = 'all_access';
+            $ticketsPath = public_path('storage/all_access');
+            if (!File::exists($ticketsPath)) {
+                File::makeDirectory($ticketsPath, 0777, true, true);
+            }
+        }else{
+            $pathCtr = 'tickets';
+            $ticketsPath = public_path('storage/tickets');
+            if (!File::exists($ticketsPath)) {
+                File::makeDirectory($ticketsPath, 0777, true, true);
+            }
         }
 
         // --- 2. decode base64 ---
@@ -211,7 +220,7 @@ class DesignerController extends Controller
             'designer_id' => $r->designer,
             'tipe_tiket' => $r->tipe,
             'kode_tiket' => $r->kode,
-            'gambar_tiket' => $imageName,
+            'gambar_tiket' => $pathCtr . '/' . $imageName,
             'status_kehadiran' => 0
         ]);
 
