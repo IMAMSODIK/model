@@ -17,24 +17,42 @@ class AllAccessController extends Controller
         ];
 
         return view('all_access.index', $data);
-    }   
+    }
 
-    public function detail(Request $r){
+    public function detail(Request $r)
+    {
         $tiket = Tiket::where('id', $r->id)->first();
 
-        if($tiket){
+        if ($tiket) {
             $allAccess = AllAccessTicket::with('designer.parade')->where('kode_tiket', $tiket->kode_tiket)->get();
 
             return response()->json([
                 'status' => true,
                 'data' => $allAccess
             ]);
-        }else{
+        } else {
             return response()->json([
                 'status' => false,
                 'message' => 'Data tidak ditemukan'
             ]);
         }
-        
+    }
+
+    public function download($id)
+    {
+        $t = Tiket::where('id', $id)->first();
+        if (!$t) {
+            abort(404, 'Tiket tidak ditemukan');
+        }
+
+        $fileName = $t->gambar_tiket;
+
+        $filePath = public_path('storage/all_access/' . $fileName);
+
+        if (!file_exists($filePath)) {
+            abort(404, 'File tiket tidak ditemukan');
+        }
+
+        return response()->download($filePath, $fileName);
     }
 }

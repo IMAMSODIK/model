@@ -88,6 +88,9 @@
                                                 <td class="align-middle text-center">
                                                     {{$d->kode_tiket}}
                                                 </td>
+                                                <td class="text-center align-middle">
+                                                    <button data-id="{{ $d->id }}" class="btn btn-danger btn-sm download">Download</button>
+                                                </td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center gap-2">
                                                         <button data-id="{{ $d->id }}"
@@ -183,6 +186,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script>
         $(document).ready(function() {
+            $(document).on('click', '.download', function () {
+                let id = $(this).data('id');
+                window.location.href = "/all-access/download/" + id;
+            });
+
             $('#tableKamar').DataTable({
                 responsive: true,
                 autoWidth: false

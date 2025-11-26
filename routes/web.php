@@ -48,6 +48,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/all-access', [AllAccessController::class, 'index']);
     Route::get('/all-access/detail', [AllAccessController::class, 'detail']);
+    Route::get('/all-access/download/{id}', [AllAccessController::class, 'download']);
 
     Route::get('/monitor-tiket', function(Request $r) {
         $data = [
