@@ -75,13 +75,13 @@
 
                                     <tbody>
                                         @php $i = 1; @endphp
-                                        {{-- @foreach ($data as $d)
+                                        @foreach ($tiket as $d)
                                             <tr>
                                                 <td class="text-center">{{ $i++ }}</td>
 
                                                 <td>{{ $d->nama }}</td>
                                                 <td>
-                                                    @if ($d->parade)
+                                                    {{-- @if ($d->parade)
                                                         <div class="d-flex align-items-center">
                                                             <img src="{{ asset('storage/parade/' . $d->parade->gambar) }}"
                                                                 alt="gambar parade"
@@ -97,25 +97,15 @@
                                                         </div>
                                                     @else
                                                         <span class="text-danger">Belum memilih parade</span>
-                                                    @endif
+                                                    @endif --}}
                                                 </td>
                                                 <td class="text-center">
-                                                    {{ \Carbon\Carbon::parse($d->parade->tanggal ?? null)->format('d M Y') }}
-                                                </td>
-                                                <td class="text-center">
-                                                    @if ($d->parade)
-                                                        {{ \Carbon\Carbon::parse($d->parade->jam_mulai)->format('H:i') }}
-                                                        -
-                                                        {{ \Carbon\Carbon::parse($d->parade->jam_selesai)->format('H:i') }}
-                                                    @else
-                                                        -
-                                                    @endif
+                                                    {{-- {{ \Carbon\Carbon::parse($d->parade->tanggal ?? null)->format('d M Y') }} --}}
                                                 </td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center gap-2">
                                                         <button data-id="{{ $d->id }}" class="btn btn-warning btn-sm edit">Edit</button>
                                                         <button data-id="{{ $d->id }}" class="btn btn-danger btn-sm hapus">Hapus</button>
-                                                        <a href="/designer/ticket?id={{$d->id}}" class="btn btn-info btn-sm tiket">Tiket</a>
                                                         <div class="d-flex justify-content-center gap-1">
                                                             <a href="/monitor-tiket?id={{ $d->id }}" target="_blank" class="btn btn-sm btn-primary text-white">
                                                                 <i class="fas fa-desktop"></i>
@@ -126,7 +116,7 @@
                                                 </td>
 
                                             </tr>
-                                        @endforeach --}}
+                                        @endforeach
                                     </tbody>
 
                                 </table>
@@ -386,9 +376,9 @@
             $("#generate").prop("disabled", false).text("Generate");
             alert("Seluruh tiket berhasil digenerate!");
 
-            // setTimeout(function() {
-            //     location.reload();
-            // }, 1000)
+                // setTimeout(function() {
+                //     location.reload();
+                // }, 1000)
         });
     </script>
 
