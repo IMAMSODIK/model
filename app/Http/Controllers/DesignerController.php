@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Designer;
 use App\Http\Controllers\Controller;
+use App\Models\AllAccessTicket;
 use App\Models\Parade;
 use App\Models\Tiket;
 use Illuminate\Http\Request;
@@ -32,6 +33,7 @@ class DesignerController extends Controller
         if($tiket->designer_id == 0){
             $data = [
                 'pageTitle' => 'Verifikasi Tiket',
+                'parade' => Parade::all(),
                 'ticket' => $tiket,
                 'designers' => Designer::all()
             ];
@@ -55,18 +57,40 @@ class DesignerController extends Controller
             if($r->token == "password_test"){
                 $tiket = Tiket::findOrFail($id);
 
-                if ($tiket->is_hadir) {
-                    return response()->json([
-                        'status' => false,
-                        'message' => 'Tiket sudah digunakan'
-                    ]);
-                } else {
-                    $tiket->nama_pemilik = $r->nama;
-                    $tiket->kontak_pemilik = $r->kontak;
-                    $tiket->is_hadir = 1;
-                    $tiket->save();
+                if($tiket->tipe_tiket == 'aa'){
+                    $allAccess = AllAccessTicket::where('kode_tiket', $tiket->kode_tiket)
+                                            ->where('designer_id', $r->designer)
+                                            ->first();
 
-                    return response()->json($tiket);
+                    if($allAccess){
+                        return response()->json([
+                            'status' => false,
+                            'message' => 'Tiket sudah digunakan'
+                        ]);
+                    }else{
+                        $tiket = AllAccessTicket::create([
+                            'kode_tiket' => $tiket->kode_tiket,
+                            'nama' => $r->nama,
+                            'kontak' => $r->kontak,
+                            'designer_id' => $r->designer
+                        ]);
+
+                        return response()->json($tiket);
+                    }
+                }else{
+                    if ($tiket->is_hadir) {
+                        return response()->json([
+                            'status' => false,
+                            'message' => 'Tiket sudah digunakan'
+                        ]);
+                    } else {
+                        $tiket->nama_pemilik = $r->nama;
+                        $tiket->kontak_pemilik = $r->kontak;
+                        $tiket->is_hadir = 1;
+                        $tiket->save();
+
+                        return response()->json($tiket);
+                    }
                 }
             }else{
                 return response()->json([

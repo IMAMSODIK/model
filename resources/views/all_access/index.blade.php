@@ -67,8 +67,7 @@
                                         <tr>
                                             <th style="width: 15px;">No</th>
                                             <th>Tiket</th>
-                                            <th>Nama Designer</th>
-                                            <th>Parade</th>
+                                            <th>Kode Tiket</th>
                                             <th style="width: 150px;">Aksi</th>
                                         </tr>
                                     </thead>
@@ -81,43 +80,20 @@
 
                                                 <td>
                                                     <div class="d-flex align-items-center">
-                                                            <img src="{{ asset('storage/all_access/' . $d->gambar_tiket) }}"
-                                                                alt="gambar parade"
-                                                                class="preview-img" width="80px" style="cursor:pointer;">
+                                                        <img src="{{ asset('storage/all_access/' . $d->gambar_tiket) }}"
+                                                            alt="gambar parade" class="preview-img" width="80px"
+                                                            style="cursor:pointer;">
                                                     </div>
                                                 </td>
-                                                <td>
-                                                    {{-- @if ($d->parade)
-                                                        <div class="d-flex align-items-center">
-                                                            <img src="{{ asset('storage/parade/' . $d->parade->gambar) }}"
-                                                                alt="gambar parade"
-                                                                style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px; margin-right:10px;">
-
-                                                            <div>
-                                                                <strong>{{ $d->parade->nama }}</strong>
-                                                                <br>
-                                                                <small class="text-muted">
-                                                                    📍 {{ $d->parade->vanue }}
-                                                                </small>
-                                                            </div>
-                                                        </div>
-                                                    @else
-                                                        <span class="text-danger">Belum memilih parade</span>
-                                                    @endif --}}
-                                                </td>
-                                                <td class="text-center">
-                                                    {{-- {{ \Carbon\Carbon::parse($d->parade->tanggal ?? null)->format('d M Y') }} --}}
+                                                <td class="align-middle text-center">
+                                                    {{$d->kode_tiket}}
                                                 </td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center gap-2">
-                                                        <button data-id="{{ $d->id }}" class="btn btn-warning btn-sm edit">Edit</button>
-                                                        <button data-id="{{ $d->id }}" class="btn btn-danger btn-sm hapus">Hapus</button>
-                                                        <div class="d-flex justify-content-center gap-1">
-                                                            <a href="/monitor-tiket?id={{ $d->id }}" target="_blank" class="btn btn-sm btn-primary text-white">
-                                                                <i class="fas fa-desktop"></i>
-                                                            </a>
-                                                        </div>
-
+                                                        <button data-id="{{ $d->id }}"
+                                                            class="btn btn-danger btn-sm hapus">Hapus</button>
+                                                        <button data-id="{{ $d->id }}"
+                                                            class="btn btn-info btn-sm detail">Detail</button>
                                                     </div>
                                                 </td>
 
@@ -137,22 +113,8 @@
     </div>
 
     <div id="imgPreviewModal"
-        style="
-    display: none;
-    position: fixed;
-    z-index: 99999;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    justify-content: center;
-    align-items: center;
-    display: none;
-">
-        <img id="previewImage" src=""
-            style="
-        max-width: 90%;
-        max-height: 90%;
-        border-radius: 12px;
-    ">
+        style="display: none; position: fixed; z-index: 99999; inset: 0; background: rgba(0,0,0,0.7); justify-content: center; align-items: center; display: none;">
+        <img id="previewImage" src="" style="max-width: 90%; max-height: 90%; border-radius: 12px;">
     </div>
 
     {{-- <div class="modal fade" id="modalTambahKamar" tabindex="-1">
@@ -191,43 +153,26 @@
         </div>
     </div> --}}
 
-    {{-- <div class="modal fade" id="modalEditKamar" tabindex="-1">
-        <div class="modal-dialog">
+    <div class="modal fade" id="modalEditKamar" tabindex="-1">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Designer</h5>
+                    <h5 class="modal-title">Detail Penggunaan Tiket</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
                 <div class="modal-body">
 
-                    <input type="hidden" id="edit_id">
-
-                    <div class="mb-3">
-                        <label class="form-label">Nama Designer</label>
-                        <input type="text" class="form-control" id="edit_nama">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Pilih Parade</label>
-                        <select class="form-control" id="edit_parade">
-                            @foreach ($parade as $item)
-                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
                 </div>
 
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button class="btn btn-primary" id="update">Update</button>
                 </div>
 
             </div>
         </div>
-    </div> --}}
+    </div>
 @endsection
 
 @section('own_script')
@@ -296,6 +241,98 @@
                     });
 
             });
+
+            $(document).on('click', '.detail', function() {
+
+                let id = $(this).data('id');
+
+                $.ajax({
+                    url: "/all-access/detail",
+                    type: "GET",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        id: id
+                    },
+
+                    success: function(res) {
+
+                        if (!res.status || res.data.length === 0) {
+                            Swal.fire("Error", "Data tidak ditemukan", "error");
+                            return;
+                        }
+
+                        let data = res.data;
+
+                        // Format tanggal Indonesia
+                        function formatTanggalIndo(dateStr) {
+                            if (!dateStr) return "-";
+                            let d = new Date(dateStr);
+                            const bulan = [
+                                "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+                                "Juli", "Agustus", "September", "Oktober", "November",
+                                "Desember"
+                            ];
+                            return `${d.getDate()} ${bulan[d.getMonth()]} ${d.getFullYear()}`;
+                        }
+
+                        // Build table HTML
+                        let rows = "";
+                        data.forEach((item, index) => {
+                            rows += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${item.kode_tiket}</td>
+                        <td>${item.nama}</td>
+                        <td>${item.kontak}</td>
+                        <td>${item.designer?.nama ?? '-'}</td>
+                        <td>${item.designer?.parade?.nama ?? '-'}</td>
+                        <td>${item.designer?.parade?.vanue ?? '-'}</td>
+                        <td>${ formatTanggalIndo(item.designer?.parade?.tanggal) }</td>
+                        <td>
+                            ${(item.designer?.parade?.jam_mulai ?? '').substring(0,5)} -
+                            ${(item.designer?.parade?.jam_selesai ?? '').substring(0,5)}
+                        </td>
+                    </tr>
+                `;
+                        });
+
+                        let table = `
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>No</th>
+                                <th>Kode Tiket</th>
+                                <th>Nama</th>
+                                <th>Kontak</th>
+                                <th>Designer</th>
+                                <th>Parade</th>
+                                <th>Venue</th>
+                                <th>Tanggal</th>
+                                <th>Waktu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${rows}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+
+                        $("#modalEditKamar .modal-body").html(table);
+                        $("#modalEditKamar").modal("show");
+                    },
+
+                    error: function(xhr) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: xhr.responseJSON?.message ?? "Terjadi kesalahan"
+                        });
+                    }
+                });
+            });
+
         });
     </script>
 
@@ -396,14 +433,14 @@
 
             let templatePath = window.templatePath;
 
-            for (let i = 0; i < 40; i++) await generateAndUploadTicket("aa", templatePath);
+            for (let i = 0; i < 1; i++) await generateAndUploadTicket("aa", templatePath);
 
             $("#generate").prop("disabled", false).text("Generate");
             alert("Seluruh tiket berhasil digenerate!");
 
-                // setTimeout(function() {
-                //     location.reload();
-                // }, 1000)
+            // setTimeout(function() {
+            //     location.reload();
+            // }, 1000)
         });
     </script>
 

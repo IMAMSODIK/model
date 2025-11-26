@@ -22,6 +22,9 @@ Route::get('/', function () {
 
 Route::get('/designer/ticket-verification', [DesignerController::class, 'verifikasi']);
 Route::post('/designer/ticket-verification', [DesignerController::class, 'verifikasiProses']);
+Route::get('/get-designers', function (Illuminate\Http\Request $r) {
+    return \App\Models\Parade::with('designer')->where('id', $r->parade_id)->first();
+})->name('get.designers');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
@@ -44,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/designer/generate-ticket/download/{designer_id}', [DesignerController::class, 'generateTicketDownload']);
 
     Route::get('/all-access', [AllAccessController::class, 'index']);
+    Route::get('/all-access/detail', [AllAccessController::class, 'detail']);
 
     Route::get('/monitor-tiket', function(Request $r) {
         $data = [

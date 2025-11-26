@@ -266,6 +266,39 @@
                 transform: rotate(360deg);
             }
         }
+
+        /* ==== CUSTOM SELECT STYLING ==== */
+        select {
+            width: 100%;
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid #75759E;
+            padding: 8px 0;
+            font-size: 20px;
+            color: #7d7d7d;
+            appearance: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* Panah custom */
+        select {
+            background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 4px center;
+            background-size: 20px;
+        }
+
+        /* Saat focus */
+        select:focus {
+            border-bottom: 1px solid #EDA261;
+        }
+
+        /* Wrapper supaya rapi */
+        .select-wrapper {
+            position: relative;
+            width: 100%;
+        }
     </style>
 </head>
 
@@ -281,34 +314,41 @@
             <main>
                 <form>
                     <input type="hidden" id="id" value="{{ $ticket->id }}">
-                    <div class="form-item box-item">
-                        <select name="name" id="select_designer">
-                            @foreach ($designers as $d)
-                                <option value="{{$d->id}}">{{$d->nama}}</option>
+                    <div class="form-item box-item select-wrapper">
+                        <select name="name" id="select_parade">
+                            <option value="">:: Pilih Parade ::</option>
+                            @foreach ($parade as $d)
+                                <option value="{{ $d->id }}">{{ $d->nama }}</option>
                             @endforeach
                         </select>
                     </div>
+
                     <div class="form-item box-item">
-                        <input type="text" name="venue" value=""
-                            data-required readonly>
+                        <input type="text" name="venue" id="vanue" data-required readonly>
                     </div>
                     <div class="form-item box-item">
-                        <input type="text" name="tanggal" value="" data-required readonly>
+                        <input type="text" name="tanggal" id="tanggal" data-required readonly>
                     </div>
                     <div class="form-item-double box-item">
                         <div class="form-item">
-                            <input type="text" name="jam_mulai" value="" placeholder="Jam Mulai">
+                            <input type="text" name="jam_mulai" id="jam_mulai" placeholder="Jam Mulai" readonly>
                         </div>
                         <div class="form-item">
-                            <input type="text" name="jam_selesai" placeholder="Jam Selesai">
+                            <input type="text" name="jam_selesai" id="jam_selesai" placeholder="Jam Selesai" readonly>
                         </div>
                     </div>
+
+                    <div class="form-item box-item select-wrapper mt-3">
+                        <select id="select_designer">
+                            <option value="">-- Pilih Parade dulu --</option>
+                        </select>
+                    </div>
+
                     <div class="form-item box-item">
                         <input type="text" name="nama_user" id="nama" required placeholder="Nama">
                     </div>
                     <div class="form-item box-item">
-                        <input type="text" name="kontak_user" id="kontak" required
-                            placeholder="Nomor Telfon">
+                        <input type="text" name="kontak_user" id="kontak" required placeholder="Nomor Telfon">
                     </div>
                     <div class="form-item box-item">
                         <input type="text" name="token" id="token" required placeholder="Token">
@@ -326,54 +366,98 @@
         crossorigin="anonymous"></script>
 
     <script>
-        $("#select_designer").on("change", function(){
-            console.log($("#select_designer").val())
-        })
+        function formatDate(dateStr) {
+            let d = new Date(dateStr);
+            let year = d.getFullYear();
+            let month = String(d.getMonth() + 1).padStart(2, "0");
+            let day = String(d.getDate()).padStart(2, "0");
+            return `${year}-${month}-${day}`;
+        }
 
-        // $(document).on('click', '#submit', function() {
-        //     let id = $('#id').val();
-        //     let nama = $('#nama').val();
-        //     let kontak = $('#kontak').val();
-        //     let token = $('#token').val();
+        function formatTime(timeStr) {
+            return timeStr.slice(0, 5); 
+        }
 
-        //     if (!nama || !kontak || !token) {
-        //         alert('Nama, Kontak dan Token harus diisi!');
-        //         return;
-        //     }
+        $("#select_parade").on("change", function() {
 
-        //     $.ajax({
-        //         url: '/designer/ticket-verification',
-        //         type: 'POST',
-        //         data: {
-        //             id: id,
-        //             nama: nama,
-        //             kontak: kontak,
-        //             token: token,
-        //             _token: $('meta[name="csrf-token"]').attr('content')
-        //         },
-        //         success: function(res) {
-        //             if (res.status === false) {
-        //                 alert(res.message || 'Tiket sudah digunakan');
-        //             } else {
-        //                 alert('Data berhasil dikirim!');
-        //                 setTimeout(() => {
-        //                     location.href = "/";
-        //                 }, 1000);
-        //             }
-        //         },
-        //         error: function(err) {
-        //             console.error(err);
+            let parade_id = $(this).val();
 
-        //             // Cek apakah server mengirim JSON dengan message
-        //             let msg = 'Terjadi kesalahan saat mengirim data.';
-        //             if (err.responseJSON && err.responseJSON.message) {
-        //                 msg = err.responseJSON.message;
-        //             }
+            $.ajax({
+                url: "{{ route('get.designers') }}",
+                type: "GET",
+                data: {
+                    parade_id: parade_id
+                },
+                success: function(res) {
+                    $("#vanue").val(res.vanue)
+                    $("#tanggal").val(formatDate(res.tanggal))
+                    $("#jam_mulai").val(formatTime(res.jam_mulai))
+                    $("#jam_selesai").val(formatTime(res.jam_selesai))
 
-        //             alert(msg);
-        //         }
-        //     });
-        // });
+                    let html = "";
+
+                    if (res.length === 0) {
+                        html = `<option value="">Tidak ada designer</option>`;
+                    } else {
+                        res.designer.forEach(d => {
+                            html += `<option value="${d.id}">${d.nama}</option>`;
+                        });
+                    }
+
+                    $("#select_designer").html(html);
+                },
+                error: function() {
+                    alert("Gagal mengambil data designer.");
+                }
+            });
+        });
+
+
+        $(document).on('click', '#submit', function() {
+            let id = $('#id').val();
+            let nama = $('#nama').val();
+            let kontak = $('#kontak').val();
+            let token = $('#token').val();
+
+            if (!nama || !kontak || !token) {
+                alert('Nama, Kontak dan Token harus diisi!');
+                return;
+            }
+
+            $.ajax({
+                url: '/designer/ticket-verification',
+                type: 'POST',
+                data: {
+                    id: id,
+                    nama: nama,
+                    kontak: kontak,
+                    token: token,
+                    designer: $("#select_designer").val(),
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(res) {
+                    if (res.status === false) {
+                        alert(res.message || 'Tiket sudah digunakan');
+                    } else {
+                        alert('Data berhasil dikirim!');
+                        setTimeout(() => {
+                            location.href = "/";
+                        }, 1000);
+                    }
+                },
+                error: function(err) {
+                    console.error(err);
+
+                    // Cek apakah server mengirim JSON dengan message
+                    let msg = 'Terjadi kesalahan saat mengirim data.';
+                    if (err.responseJSON && err.responseJSON.message) {
+                        msg = err.responseJSON.message;
+                    }
+
+                    alert(msg);
+                }
+            });
+        });
     </script>
 
 </body>
