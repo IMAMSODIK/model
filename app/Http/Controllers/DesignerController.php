@@ -36,7 +36,7 @@ class DesignerController extends Controller
                 'designers' => Designer::all()
             ];
 
-            return view('ticket.all_access', $data);
+            return view('all_access.index', $data);
         }else{
             $data = [
                 'pageTitle' => 'Verifikasi Tiket',
