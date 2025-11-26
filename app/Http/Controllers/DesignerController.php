@@ -162,7 +162,7 @@ class DesignerController extends Controller
         $r->validate([
             'designer' => 'required',
             'kode' => 'required|string|unique:tikets,kode_tiket',
-            'tipe' => 'required|in:aa',
+            'tipe' => 'required|in:vvip,aa,reguler',
             'gambar' => 'required'
         ]);
 

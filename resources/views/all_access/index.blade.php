@@ -353,7 +353,7 @@
                             data: {
                                 designer: 0,
                                 kode: kode,
-                                tipe: type,
+                                tipe: 'aa',
                                 gambar: base64,
                                 _token: $('meta[name="csrf-token"]').attr('content')
                             },
