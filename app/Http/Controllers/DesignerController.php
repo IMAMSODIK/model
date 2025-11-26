@@ -32,18 +32,18 @@ class DesignerController extends Controller
         if($tiket->designer_id == 0){
             $data = [
                 'pageTitle' => 'Verifikasi Tiket',
-                'ticket' => $tiket
-            ];
-
-            return view('ticket.index', $data);
-        }else{
-            $data = [
-                'pageTitle' => 'Verifikasi Tiket',
                 'ticket' => $tiket,
                 'designers' => Designer::all()
             ];
 
             return view('ticket.all_access', $data);
+        }else{
+            $data = [
+                'pageTitle' => 'Verifikasi Tiket',
+                'ticket' => $tiket
+            ];
+
+            return view('ticket.index', $data);
         }
     }
 
