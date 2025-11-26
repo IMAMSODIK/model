@@ -50,6 +50,14 @@
                         <span>Designer</span>
                     </a>
                 </li>
+
+                <li class="sidebar-list">
+                    <i class="fa fa-thumb-tack"></i>
+                    <a class="sidebar-link sidebar-title link-nav" href="/all-access">
+                        <i class="fa fa-users text-white"></i>
+                        <span>Tiket All Access</span>
+                    </a>
+                </li>
             </ul>
             <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
         </div>

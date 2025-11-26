@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AllAccessController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DesignerController;
@@ -41,6 +42,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/designer/generate-ticket/delete', [DesignerController::class, 'generateTicketDelete']);
     Route::post('/designer/generate-ticket/clear', [DesignerController::class, 'generateTicketClear']);
     Route::get('/designer/generate-ticket/download/{designer_id}', [DesignerController::class, 'generateTicketDownload']);
+
+    Route::get('/all-access', [AllAccessController::class, 'index']);
 
     Route::get('/monitor-tiket', function(Request $r) {
         $data = [

@@ -28,12 +28,23 @@ class DesignerController extends Controller
     public function verifikasi(Request $r)
     {
         $tiket = Tiket::with('designer.parade')->where('kode_tiket', $r->kode)->first();
-        $data = [
-            'pageTitle' => 'Verifikasi Tiket',
-            'ticket' => $tiket
-        ];
 
-        return view('ticket.index', $data);
+        if($tiket->designer_id == 0){
+            $data = [
+                'pageTitle' => 'Verifikasi Tiket',
+                'ticket' => $tiket
+            ];
+
+            return view('ticket.index', $data);
+        }else{
+            $data = [
+                'pageTitle' => 'Verifikasi Tiket',
+                'ticket' => $tiket,
+                'designers' => Designer::all()
+            ];
+
+            return view('ticket.all_access', $data);
+        }
     }
 
     public function verifikasiProses(Request $r)
@@ -151,12 +162,12 @@ class DesignerController extends Controller
         $r->validate([
             'designer' => 'required',
             'kode' => 'required|string|unique:tikets,kode_tiket',
-            'tipe' => 'required|in:vvip,reguler',
+            'tipe' => 'required|in:aa',
             'gambar' => 'required'
         ]);
 
         // --- 1. pastikan folder public/tickets ada ---
-        $ticketsPath = public_path('storage/tickets');
+        $ticketsPath = public_path('storage/all_access');
         if (!File::exists($ticketsPath)) {
             File::makeDirectory($ticketsPath, 0777, true, true);
         }
