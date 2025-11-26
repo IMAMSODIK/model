@@ -396,7 +396,7 @@
 
             let templatePath = window.templatePath;
 
-            for (let i = 0; i < 4; i++) await generateAndUploadTicket("aa", templatePath);
+            for (let i = 0; i < 40; i++) await generateAndUploadTicket("aa", templatePath);
 
             $("#generate").prop("disabled", false).text("Generate");
             alert("Seluruh tiket berhasil digenerate!");
