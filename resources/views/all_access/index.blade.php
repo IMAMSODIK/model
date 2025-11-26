@@ -83,7 +83,7 @@
                                                     <div class="d-flex align-items-center">
                                                             <img src="{{ asset('storage/all_access/' . $d->gambar_tiket) }}"
                                                                 alt="gambar parade"
-                                                                style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px; margin-right:10px;">
+                                                                class="preview-img" style="cursor:pointer;">
                                                     </div>
                                                 </td>
                                                 <td>
@@ -134,6 +134,25 @@
 
         </div>
 
+    </div>
+
+    <div id="imgPreviewModal"
+        style="
+    display: none;
+    position: fixed;
+    z-index: 99999;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    display: none;
+">
+        <img id="previewImage" src=""
+            style="
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 12px;
+    ">
     </div>
 
     {{-- <div class="modal fade" id="modalTambahKamar" tabindex="-1">
@@ -389,4 +408,17 @@
     </script>
 
     <canvas id="ticketCanvas" style="display:none;"></canvas>
+
+    <script>
+        $(document).on('click', '.preview-img', function() {
+            $('#previewImage').attr('src', $(this).attr('src'));
+            $('#imgPreviewModal')
+                .css('display', 'flex')
+                .hide()
+                .fadeIn(200);
+        });
+        $('#imgPreviewModal').on('click', function() {
+            $(this).fadeOut(200);
+        });
+    </script>
 @endsection
