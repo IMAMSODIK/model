@@ -54,7 +54,7 @@
                 <li class="sidebar-list">
                     <i class="fa fa-thumb-tack"></i>
                     <a class="sidebar-link sidebar-title link-nav" href="/all-access">
-                        <i class="fa fa-ticket text-white"></i>
+                        <i class="fa fa-ticket-alt text-white"></i>
                         <span>Tiket All Access</span>
                     </a>
                 </li>
