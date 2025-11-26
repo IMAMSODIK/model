@@ -68,6 +68,7 @@
                                             <th style="width: 15px;">No</th>
                                             <th>Tiket</th>
                                             <th>Kode Tiket</th>
+                                            <th>Download</th>
                                             <th style="width: 150px;">Aksi</th>
                                         </tr>
                                     </thead>
