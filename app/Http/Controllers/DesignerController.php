@@ -187,7 +187,7 @@ class DesignerController extends Controller
             'designer_id' => $r->designer,
             'tipe_tiket' => $r->tipe,
             'kode_tiket' => $r->kode,
-            'gambar_tiket' => 'tickets/' . $imageName,
+            'gambar_tiket' => $imageName,
             'status_kehadiran' => 0
         ]);
 
