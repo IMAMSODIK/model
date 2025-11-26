@@ -83,7 +83,7 @@
                                                     <div class="d-flex align-items-center">
                                                             <img src="{{ asset('storage/all_access/' . $d->gambar_tiket) }}"
                                                                 alt="gambar parade"
-                                                                class="preview-img" style="cursor:pointer;">
+                                                                class="preview-img" width="80px" style="cursor:pointer;">
                                                     </div>
                                                 </td>
                                                 <td>
