@@ -289,7 +289,7 @@
                         </select>
                     </div>
                     <div class="form-item box-item">
-                        <input type="text" name="venue" value="{{ $ticket->designer->parade->vanue }}"
+                        <input type="text" name="venue" value=""
                             data-required readonly>
                     </div>
                     <div class="form-item box-item">
